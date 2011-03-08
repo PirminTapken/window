@@ -10,12 +10,8 @@
   :title
   :visible"
   [& properties]
-  (let [default {:size-x 0 :size-y 0 :title "" :listener nil :visible false}
-        {title :title
-         size-x :size-x
-         size-y :size-y
-         visible :visible
-         listener :listener} (merge default (apply hash-map properties))]
+  (let [default {::size-x 0 :size-y 0 :title "" :listener nil :visible false}
+        {:keys [title size-x size-y visible listener]} (merge default (apply hash-map properties))]
     (doto (Frame.)
       (.setTitle title)
       (.setSize size-x size-y)
