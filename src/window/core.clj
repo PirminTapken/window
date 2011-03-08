@@ -3,30 +3,30 @@
   (:import (java.awt Frame Window))
   (:import (java.awt.event WindowAdapter)))
 
-(defn main-window 
+(defn main-window
   "properties are map with following keys:
   :size-x
   :size-y
   :title
   :visible"
   [& properties]
-	(let [properties (apply hash-map properties)]
-		(doto (Frame.)
-			(.setTitle (if-let [s (:title properties)] s ""))
-			(.setSize
-				(if-let [x (:size-x properties)] x 0)
-				(if-let [y (:size-y properties)] y 0))
-			(.addWindowListener (if-let [l (:listener properties)] l nil))
-			(.setVisible (if-let [b (:visible properties)] b false)))))
+  (let [default {:size-x 0 :size-y 0 :title "" :listener nil :visible false}
+        properties (merge default (apply hash-map properties))]
+    (doto (Frame.)
+      (.setTitle (:title properties))
+      (.setSize (:size-x properties)
+                (:size-y properties))
+      (.addWindowListener (:listener properties))
+      (.setVisible (:visible properties)))))
 
 (def window-adapter
   (proxy [WindowAdapter] []
-      (windowClosing [event] (.dispose (.getWindow event)))))
+    (windowClosing [event] (.dispose (.getWindow event)))))
 
 (defn -main []
   (main-window
-    :size-x 640
-    :size-y 480
-    :title "stuff"
-    :listener window-adapter
-    :visible true))
+   :size-x 640
+   :size-y 480
+   :title "stuff"
+   :listener window-adapter
+   :visible true))
