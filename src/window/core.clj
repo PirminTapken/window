@@ -19,14 +19,19 @@
       (.addWindowListener (:listener properties))
       (.setVisible (:visible properties)))))
 
-(def window-adapter
-  (proxy [WindowAdapter] []
-    (windowClosing [event] (.dispose (.getWindow event)))))
+(defmacro window-adapter
+  [body]
+  `(proxy [WindowAdapter] []
+    ~body))
 
 (defn -main []
+  (let [listener (window-adapter
+                  (windowClosing
+                   [event]
+                   (.dispose (.getWindow event)))) ])
   (main-window
    :size-x 640
    :size-y 480
    :title "stuff"
-   :listener window-adapter
+   :listener listener
    :visible true))
