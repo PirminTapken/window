@@ -13,7 +13,7 @@
   (let [default {:size-x 0 :size-y 0 :title "" :listener nil :visible false}
         {title :title
          size-x :size-x
-         size-y :size y
+         size-y :size-y
          visible :visible
          listener :listener} (merge default (apply hash-map properties))]
     (doto (Frame.)
@@ -31,10 +31,10 @@
   (let [listener (window-adapter
                   (windowClosing
                    [event]
-                   (.dispose (.getWindow event)))) ])
-  (main-window
-   :size-x 640
-   :size-y 480
-   :title "stuff"
-   :listener listener
-   :visible true))
+                   (.dispose (.getWindow event))))]
+    (main-window
+     :size-x 640
+     :size-y 480
+     :title "stuff"
+     :listener listener
+     :visible true)))
