@@ -9,14 +9,15 @@
   :size-y
   :title
   :visible"
-  [properties]
-  (doto (Frame.)
-    (.setTitle (if-let [s (:title properties)] s ""))
-    (.setSize
-      (if-let [x (:size-x properties)] x 0)
-      (if-let [y (:size-y properties)] y 0))
-    (.addWindowListener (if-let [l (:listener properties)] l nil))
-    (.setVisible (if-let [b (:visible properties)] b false))))
+  [& properties]
+	(let [properties (apply hash-map properties)]
+		(doto (Frame.)
+			(.setTitle (if-let [s (:title properties)] s ""))
+			(.setSize
+				(if-let [x (:size-x properties)] x 0)
+				(if-let [y (:size-y properties)] y 0))
+			(.addWindowListener (if-let [l (:listener properties)] l nil))
+			(.setVisible (if-let [b (:visible properties)] b false)))))
 
 (def window-adapter
   (proxy [WindowAdapter] []
@@ -24,8 +25,8 @@
 
 (defn -main []
   (main-window
-    {:size-x 640
-     :size-y 480
-     :title "stuff"
-     :listener window-adapter
-     :visible true}))
+    :size-x 640
+    :size-y 480
+    :title "stuff"
+    :listener window-adapter
+    :visible true))
