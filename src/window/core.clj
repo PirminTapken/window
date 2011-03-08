@@ -1,6 +1,6 @@
 (ns window.core
   (:gen-class)
-  (:import (java.awt Frame Window))
+  (:import (java.awt Frame Window Canvas))
   (:import (java.awt.event WindowAdapter)))
 
 (defn main-window
@@ -16,7 +16,8 @@
       (.setTitle title)
       (.setSize size-x size-y)
       (.addWindowListener listener)
-      (.setVisible visible))))
+      (.setVisible visible)
+      (.add (Canvas.)))))
 
 (defmacro window-adapter
   [body]
