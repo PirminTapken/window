@@ -1,13 +1,13 @@
 # window
 
-FIXME: write description
+Displays an empty window
 
 ## Usage
 
-FIXME: write
+lein run
 
 ## License
 
-Copyright (C) 2010 FIXME
+Copyright (C) 2011 Pirmin Fix
 
 Distributed under the Eclipse Public License, the same as Clojure.
