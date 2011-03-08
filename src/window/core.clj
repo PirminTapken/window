@@ -11,13 +11,16 @@
   :visible"
   [& properties]
   (let [default {:size-x 0 :size-y 0 :title "" :listener nil :visible false}
-        properties (merge default (apply hash-map properties))]
+        {title :title
+         size-x :size-x
+         size-y :size y
+         visible :visible
+         listener :listener} (merge default (apply hash-map properties))]
     (doto (Frame.)
-      (.setTitle (:title properties))
-      (.setSize (:size-x properties)
-                (:size-y properties))
-      (.addWindowListener (:listener properties))
-      (.setVisible (:visible properties)))))
+      (.setTitle title)
+      (.setSize size-x size-y)
+      (.addWindowListener listener)
+      (.setVisible visible))))
 
 (defmacro window-adapter
   [body]
